@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">PJATK - Lista produktów</string>
+    <string name="add_button">Dodaj produkt</string>
+    <string name="settings">Ustawienia</string>
+    <string name="back">Wróć</string>
+    <string name="product_lists">Listy zakupów</string>
+    <string name="comeback">Powrót</string>
+    <string name="font_color">Kolor czcionki</string>
+    <string name="color">Kolor</string>
+    <string name="font_size">Rozmiar czcionki</string>
+    <string name="accept">Akceptuj</string>
+    <string name="product_name_label">Nazwa produktu:</string>
+    <string name="price_label">Cena:</string>
+    <string name="count">Ilość: </string>
+    <string name="bought">Zakupiono</string>
+    <string name="edit_product">Edytuj produkt</string>
+    <string name="delete">Usuń</string>
+
+
+</resources>

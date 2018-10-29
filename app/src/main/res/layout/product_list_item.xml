@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:padding="15dp"
+    android:id="@+id/parent_layout">
+
+    <TextView
+        android:id="@+id/product_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/product_name"
+        android:text="@string/product_name_label"
+        />
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/product_name_label"
+        android:layout_marginStart="5dp"
+        />
+
+    <TextView
+        android:id="@+id/price_label"
+        android:layout_width="103dp"
+        android:layout_height="34dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/product_name_label"
+        android:layout_marginTop="30dp"
+        android:labelFor="@+id/product_price"
+        android:text="@string/price_label" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/product_name"
+        android:layout_marginTop="30dp"
+         />
+
+    <TextView
+        android:id="@+id/count_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/price_label"
+        android:layout_marginTop="30dp"
+        android:labelFor="@+id/count"
+        android:text="@string/count" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/price"
+        android:layout_alignTop="@+id/price"
+        android:layout_marginTop="30dp"
+        />
+
+    <CheckBox
+        android:id="@+id/hasBeenBought"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/price_label"
+        android:layout_marginEnd="36dp"
+        android:text="@string/bought" />
+
+</RelativeLayout>
