@@ -1,21 +1,22 @@
 package com.example.boberkowy.myapplication.Activity;
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.boberkowy.myapplication.DAO.ProductLab;
 import com.example.boberkowy.myapplication.Model.Product;
-import com.example.boberkowy.myapplication.Model.ProductList;
 import com.example.boberkowy.myapplication.R;
 
 import java.util.UUID;
@@ -58,6 +59,14 @@ public class AddProductActivity extends AppCompatActivity{
         productLab.addProduct(mProduct);
 
         Toast.makeText(this,"Dodano pomyślnie",Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+        intent.setAction("com.example.boberkowy.myapplication");
+        intent.putExtra("product_id",productLab.getProductIdByName(mProduct.getName()).toString());
+        Log.d("BROAD", "Sending broadcast");
+        sendBroadcast(intent);
+
         startActivity(new Intent(this,ProductListActivity.class));
     }
 

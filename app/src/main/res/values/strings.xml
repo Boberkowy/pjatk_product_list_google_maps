@@ -15,6 +15,6 @@
     <string name="bought">Zakupiono</string>
     <string name="edit_product">Edytuj produkt</string>
     <string name="delete">Usuń</string>
-
+    <string name="test_broadcast">Test broadcast</string>
 
 </resources>

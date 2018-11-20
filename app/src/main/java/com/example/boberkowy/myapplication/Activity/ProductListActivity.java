@@ -46,4 +46,8 @@ public class ProductListActivity extends AppCompatActivity {
         intent.putExtra("product_id", "0");
         startActivity(intent);
     }
+
+    public void backToMain(View view) {
+        startActivity(new Intent(this,MainActivity.class));
+    }
 }

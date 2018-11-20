@@ -4,8 +4,6 @@ import android.database.Cursor;
 import android.database.CursorWrapper;
 
 import com.example.boberkowy.myapplication.Model.Product;
-import com.example.boberkowy.myapplication.Model.ProductList;
-import com.example.boberkowy.myapplication.Model.ProductsLists;
 
 import java.util.UUID;
 
@@ -32,27 +30,5 @@ public class ProductCursorWrapper extends CursorWrapper {
         product.setPurchased(purchased);
 
         return product;
-    }
-
-    public ProductList getProductList(){
-        String uuidString = getString(getColumnIndex(ProductListTable.Cols.UUID));
-        String name = getString(getColumnIndex(ProductListTable.Cols.PRODUCT_LIST_NAME));
-
-        ProductList productList = new ProductList(UUID.fromString(uuidString));
-        productList.setName(name);
-
-        return productList;
-    }
-
-    public ProductsLists getProductsLists(){
-        String uuidString = getString(getColumnIndex(ProductsListsTable.Cols.UUID));
-        String productUuidString = getString(getColumnIndex(ProductsListsTable.Cols.PRODUCT_ID));
-        String productListUuidString = getString(getColumnIndex(ProductsListsTable.Cols.PRODUCT_LIST_ID));
-
-        ProductsLists productsLists = new ProductsLists(UUID.fromString(uuidString));
-        productsLists.setProductId(UUID.fromString(productUuidString));
-        productsLists.setProductListId(UUID.fromString(productListUuidString));
-
-        return productsLists;
     }
 }

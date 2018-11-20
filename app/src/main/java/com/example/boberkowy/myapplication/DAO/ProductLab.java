@@ -81,6 +81,21 @@ public class ProductLab {
         }
     }
 
+    public UUID getProductIdByName(String name){
+
+        ProductCursorWrapper cursor = queryProducts(ProductTable.Cols.PRODUCT_NAME + "=?", new String[]{name});
+
+        try{
+            if(cursor.getCount() == 0){
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getProduct().getId();
+        }finally {
+            cursor.close();
+        }
+    }
+
     private ProductCursorWrapper queryProducts(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 ProductTable.NAME,
@@ -95,7 +110,7 @@ public class ProductLab {
         return new ProductCursorWrapper(cursor);
     }
 
-    private static ContentValues getProductValues(Product product) {
+    private static ContentValues    getProductValues(Product product) {
         ContentValues values = new ContentValues();
 
         values.put(ProductTable.Cols.UUID, product.getId().toString());

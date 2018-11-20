@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true">
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="202dp"
             android:layout_height="wrap_content"
             android:onClick="addProduct"
             android:text="@string/add_button"
@@ -23,6 +23,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="backToMain"
+            android:text="@string/comeback" />
 
     </LinearLayout>
 

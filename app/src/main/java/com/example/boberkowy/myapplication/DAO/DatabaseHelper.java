@@ -27,22 +27,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ProductTable.Cols.COUNT + ", " +
                 ProductTable.Cols.ISPURCHASED + ")"
         );
-
-        db.execSQL("CREATE TABLE " + ProductListTable.NAME +
-                "(" +
-                "_id integer primary key autoincrement," +
-                ProductListTable.Cols.UUID + ", " +
-                ProductListTable.Cols.PRODUCT_LIST_NAME+ ")"
-        );
-
-
-        db.execSQL("CREATE TABLE " + ProductsListsTable.NAME +
-                "(" +
-                "_id integer primary key autoincrement," +
-                ProductsListsTable.Cols.UUID + ", " +
-                ProductsListsTable.Cols.PRODUCT_ID+ ", " +
-                ProductsListsTable.Cols.PRODUCT_LIST_ID+ ")"
-        );
     }
 
     @Override
