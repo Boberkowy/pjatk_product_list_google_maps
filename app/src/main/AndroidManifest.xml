@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.boberkowy.myapplication">
 
+    <permission android:name="com.example.mypermission"
+        android:label="my_permission"
+        android:protectionLevel="dangerous">
+    </permission>
+    <uses-permission android:name="com.example.mypermission"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,7 +23,12 @@
         </activity>
         <activity android:name=".Activity.SettingsActivity" />
         <activity android:name=".Activity.AddProductActivity" />
-        <activity android:name=".Activity.ProductListActivity" />
+        <activity android:name=".Activity.ProductListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.myaction"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

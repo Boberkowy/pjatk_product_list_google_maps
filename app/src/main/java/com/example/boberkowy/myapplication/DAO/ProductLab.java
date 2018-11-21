@@ -81,7 +81,7 @@ public class ProductLab {
         }
     }
 
-    public UUID getProductIdByName(String name){
+    public Product getProductByName(String name){
 
         ProductCursorWrapper cursor = queryProducts(ProductTable.Cols.PRODUCT_NAME + "=?", new String[]{name});
 
@@ -90,7 +90,7 @@ public class ProductLab {
                 return null;
             }
             cursor.moveToFirst();
-            return cursor.getProduct().getId();
+            return cursor.getProduct();
         }finally {
             cursor.close();
         }

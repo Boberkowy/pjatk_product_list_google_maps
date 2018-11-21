@@ -59,4 +59,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void testBroadcast(View view) {
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+        intent.setAction("com.example.boberkowy.myapplication");
+        intent.putExtra("product_id","mop");
+        Log.d("BROAD", "Sending broadcast");
+        sendBroadcast(intent,"com.example.mypermission");
+    }
 }

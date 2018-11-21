@@ -63,7 +63,7 @@ public class AddProductActivity extends AppCompatActivity{
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         intent.setAction("com.example.boberkowy.myapplication");
-        intent.putExtra("product_id",productLab.getProductIdByName(mProduct.getName()).toString());
+        intent.putExtra("product_id",mProduct.getName());
         Log.d("BROAD", "Sending broadcast");
         sendBroadcast(intent);
 
