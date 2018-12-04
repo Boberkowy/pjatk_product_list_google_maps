@@ -23,7 +23,7 @@ public class ProductCursorWrapper extends CursorWrapper {
         String price = getString(getColumnIndex(ProductTable.Cols.PRICE));
         boolean purchased = getInt(getColumnIndex(ProductTable.Cols.ISPURCHASED)) > 0;
 
-        Product product = new Product(UUID.fromString(uuidString));
+        Product product = new Product(uuidString);
         product.setName(name);
         product.setCount(count);
         product.setPrice(price);

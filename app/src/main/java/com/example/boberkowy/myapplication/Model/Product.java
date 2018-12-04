@@ -4,23 +4,22 @@ import java.util.UUID;
 
 public class Product {
 
-    private UUID mId;
+    private String mId;
     private String mName;
     private String mCount;
     private String mPrice;
     private boolean mPurchased;
 
     public Product(){
-        mId = UUID.randomUUID();
     }
 
-    public Product(UUID id){mId = id;}
+    public Product(String id){mId = id;}
 
-    public UUID getId() {
+    public String getId() {
         return mId;
     }
 
-    public void setId(UUID mId) {
+    public void setId(String mId) {
         this.mId = mId;
     }
 

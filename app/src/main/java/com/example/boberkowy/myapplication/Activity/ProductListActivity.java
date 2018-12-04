@@ -6,12 +6,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.example.boberkowy.myapplication.Adapter.ProductListAdapter;
 import com.example.boberkowy.myapplication.DAO.ProductLab;
 import com.example.boberkowy.myapplication.Model.Product;
 import com.example.boberkowy.myapplication.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,18 +26,46 @@ import java.util.UUID;
 public class ProductListActivity extends AppCompatActivity {
 
     private List<Product> productList = new ArrayList<>();
+    DatabaseReference databaseReference;
+    ValueEventListener valueEventListener;
+    private final String TAG = "FIREBASE";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
+        databaseReference = FirebaseDatabase.getInstance().getReference("product");
         getProductList();
-        initRecyclerView();
     }
 
     public void getProductList() {
-        ProductLab productLab = ProductLab.get(this);
-        productList = productLab.getProducts();
+        databaseReference.addValueEventListener(valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e("Count ", "" + dataSnapshot.getChildrenCount());
+                productList.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Product product = ds.getValue(Product.class);
+                    productList.add(product);
+                    Log.e("Get Data", product.getName());
+                }
+                initRecyclerView();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("The read failed: ", databaseError.getMessage());
+            }
+        });
+//        ProductLab productLab = ProductLab.get(this);
+//        productList = productLab.getProducts();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("asd","WSZEDŁEM DO DESTROYA W PRODUCT LIST");
+        databaseReference.removeEventListener(valueEventListener);
     }
 
     private void initRecyclerView() {
@@ -48,6 +82,6 @@ public class ProductListActivity extends AppCompatActivity {
     }
 
     public void backToMain(View view) {
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

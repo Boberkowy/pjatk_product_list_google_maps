@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "847855243911",
+    "firebase_url": "https://myapplication-e7edc.firebaseio.com",
+    "project_id": "myapplication-e7edc",
+    "storage_bucket": "myapplication-e7edc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847855243911:android:90ef1330868ab5b5",
+        "android_client_info": {
+          "package_name": "com.example.boberkowy.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "847855243911-0u63r3ugk11clkn3gcb2s6msaqa88ric.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.boberkowy.myapplication",
+            "certificate_hash": "0176eef00a6a6ef7a59f03c8cce2902d71d28693"
+          }
+        },
+        {
+          "client_id": "847855243911-kc22b0lc65gv244s63b6k7t0sip1u40p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwxuVjvHL2dEAd8DbqKmUB0-x8Ms4lpPs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "847855243911-kc22b0lc65gv244s63b6k7t0sip1u40p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

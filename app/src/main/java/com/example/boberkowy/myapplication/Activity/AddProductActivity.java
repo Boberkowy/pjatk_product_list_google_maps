@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -18,36 +19,51 @@ import android.widget.Toast;
 import com.example.boberkowy.myapplication.DAO.ProductLab;
 import com.example.boberkowy.myapplication.Model.Product;
 import com.example.boberkowy.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.UUID;
 
-public class AddProductActivity extends AppCompatActivity{
+public class AddProductActivity extends AppCompatActivity {
 
-    private Product mProduct;
+    private Product mProduct = new Product();
+    private DatabaseReference productDatabase;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+
         handleExtra();
         createProductNameField();
         createProductPriceField();
         createProductCountField();
     }
 
-    public void handleExtra(){
+    public void handleExtra() {
         Intent intent = getIntent();
         String id = intent.getStringExtra("product_id");
         Button addButton = findViewById(R.id.add_product);
         Button editButton = findViewById(R.id.edit_product);
         Button deleteButton = findViewById(R.id.delete_button);
-        if(id.equals("0")){
-            mProduct = new Product();
+
+        if (id.equals("0")) {
+            productDatabase = FirebaseDatabase.getInstance().getReference("product");
             addButton.setVisibility(View.VISIBLE);
             editButton.setVisibility(View.GONE);
             deleteButton.setVisibility(View.GONE);
-        }else{
-            mProduct = ProductLab.get(this).getProduct(UUID.fromString(id));
+        } else {
+            productDatabase = FirebaseDatabase.getInstance().getReference("product").child(id);
+//            mProduct.setId(intent.getStringExtra("product_id"));
+            mProduct.setName(intent.getStringExtra("product_name"));
+            mProduct.setPrice(intent.getStringExtra("product_price"));
+            mProduct.setCount(intent.getStringExtra("product_count"));
+            mProduct.setPurchased(intent.getBooleanExtra("product_purchased", false));
             addButton.setVisibility(View.GONE);
             editButton.setVisibility(View.VISIBLE);
             deleteButton.setVisibility(View.VISIBLE);
@@ -55,27 +71,36 @@ public class AddProductActivity extends AppCompatActivity{
     }
 
     public void addProduct(View view) {
-        ProductLab productLab = ProductLab.get(this);
-        productLab.addProduct(mProduct);
+//        final ProductLab productLab = ProductLab.get(this);
+//        productLab.addProduct(mProduct);
 
-        Toast.makeText(this,"Dodano pomyślnie",Toast.LENGTH_LONG).show();
+        String id = productDatabase.push().getKey();
+        mProduct.setId(id);
+        productDatabase.child(id).setValue(mProduct);
+
+        Toast.makeText(this, "Dodano pomyślnie", Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         intent.setAction("com.example.boberkowy.myapplication");
-        intent.putExtra("product_id",mProduct.getName());
+        intent.putExtra("product_id", mProduct.getName());
         Log.d("BROAD", "Sending broadcast");
-        sendBroadcast(intent);
+        sendBroadcast(intent, "com.example.mypermission");
 
-        startActivity(new Intent(this,ProductListActivity.class));
+        startActivity(new Intent(this, ProductListActivity.class));
     }
 
-    public void editProduct(View view){
-        ProductLab productLab = ProductLab.get(this);
-        productLab.updateProduct(mProduct);
+    public void editProduct(View view) {
+//        ProductLab productLab = ProductLab.get(this);
+//        productLab.updateProduct(mProduct);
 
-        Toast.makeText(this,"Edytowano pomyślnie",Toast.LENGTH_LONG).show();
-        startActivity(new Intent(this,ProductListActivity.class));
+        productDatabase.child("name").setValue(mProduct.getName());
+        productDatabase.child("count").setValue(mProduct.getCount());
+        productDatabase.child("price").setValue(mProduct.getPrice());
+        productDatabase.child("purchased").setValue(mProduct.isPurchased());
+
+        Toast.makeText(AddProductActivity.this, "Edytowano pomyślnie: " + mProduct.getName(), Toast.LENGTH_LONG).show();
+        startActivity(new Intent(AddProductActivity.this, ProductListActivity.class));
 
     }
 
@@ -147,8 +172,18 @@ public class AddProductActivity extends AppCompatActivity{
 
 
     public void deleteProduct(View view) {
-        ProductLab.get(this).deleteProduct(mProduct.getId());
-        Toast.makeText(this,"Usunięto pomyślnie",Toast.LENGTH_LONG).show();
-        startActivity(new Intent(this, ProductListActivity.class));
+//        ProductLab.get(this).deleteProduct(mProduct.getId());
+
+        productDatabase.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(AddProductActivity.this, "Usunięto pomyślnie", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(AddProductActivity.this, "Usuwanie nie powiodło się", Toast.LENGTH_LONG).show();
+                }
+                startActivity(new Intent(AddProductActivity.this, ProductListActivity.class));
+            }
+        });
     }
 }

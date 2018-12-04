@@ -14,11 +14,20 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.boberkowy.myapplication.Helpers.StaticsVariables;
+import com.example.boberkowy.myapplication.Model.Product;
 import com.example.boberkowy.myapplication.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.UUID;
 
 import static com.example.boberkowy.myapplication.Helpers.StaticsVariables.*;
 import static com.example.boberkowy.myapplication.Helpers.StaticsVariables.PREFERENCES_FONT_SIZE;
 import static com.example.boberkowy.myapplication.Helpers.StaticsVariables.PREFERENCES_NAME;
+import static java.util.UUID.fromString;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
@@ -30,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
         prepareSharedPreferences();
         getButtonsPreferences();
+
     }
 
     public void addButtonHandler(View view) {
@@ -60,11 +70,34 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void testBroadcast(View view) {
-        Intent intent = new Intent();
-        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-        intent.setAction("com.example.boberkowy.myapplication");
-        intent.putExtra("product_id","mop");
-        Log.d("BROAD", "Sending broadcast");
-        sendBroadcast(intent,"com.example.mypermission");
+//        Intent intent = new Intent();
+//        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+//        intent.setAction("com.example.boberkowy.myapplication");
+//        intent.putExtra("product_id","mop");
+//        Log.d("BROAD", "Sending broadcast");
+//        sendBroadcast(intent,"com.example.mypermission");
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+        final DatabaseReference product = database.getReference("product");
+        final Product pro = new Product();
+        pro.setName("firebase");
+        pro.setPurchased(true);
+        pro.setCount("123");
+        pro.setPrice("123");
+
+        product.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                product.child(pro.getName()).setValue(pro);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        myRef.setValue("Hello, World!");
     }
 }

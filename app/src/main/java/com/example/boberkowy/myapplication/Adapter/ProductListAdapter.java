@@ -16,6 +16,8 @@ import com.example.boberkowy.myapplication.Activity.AddProductActivity;
 import com.example.boberkowy.myapplication.DAO.ProductLab;
 import com.example.boberkowy.myapplication.Model.Product;
 import com.example.boberkowy.myapplication.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private List<Product> products = new ArrayList<>();
     private Context mContext;
+    private DatabaseReference productDatabase;
+
 
     public ProductListAdapter(List<Product> products, Context mContext) {
         this.products = products;
@@ -53,7 +57,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddProductActivity.class);
-                intent.putExtra("product_id", String.valueOf(products.get(viewHolder.getAdapterPosition()).getId()));
+                intent.putExtra("product_id", products.get(viewHolder.getAdapterPosition()).getId());
+                intent.putExtra("product_name",products.get(viewHolder.getAdapterPosition()).getName());
+                intent.putExtra("product_count",products.get(viewHolder.getAdapterPosition()).getCount());
+                intent.putExtra("product_price",products.get(viewHolder.getAdapterPosition()).getPrice());
+                intent.putExtra("product_purchased",products.get(viewHolder.getAdapterPosition()).isPurchased());
                 v.getContext().startActivity(intent);
             }
         });
@@ -62,14 +70,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             @Override
             public void onClick(View v) {
                 Product toUpdate = products.get(viewHolder.getAdapterPosition());
+                productDatabase = FirebaseDatabase.getInstance().getReference("product").child(toUpdate.getId()).child("purchased");
 
                 if(viewHolder.hasBeenBought.isChecked()){
-                    toUpdate.setPurchased(true);
-                    ProductLab.get(v.getContext()).updateProduct(toUpdate);
+                    productDatabase.setValue(true);
+//                    toUpdate.setPurchased(true);
                 }else {
-                    toUpdate.setPurchased(false);
-                    ProductLab.get(v.getContext()).updateProduct(toUpdate);
+                    productDatabase.setValue(false);
+//                    toUpdate.setPurchased(false);
                 }
+//                ProductLab.get(v.getContext()).updateProduct(toUpdate);
             }
         });
     }

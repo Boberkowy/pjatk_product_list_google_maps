@@ -39,14 +39,14 @@ public class ProductLab {
     }
 
     public void updateProduct(Product product) {
-        String uuidString = product.getId().toString();
+        String uuidString = product.getId();
         ContentValues values = getProductValues(product);
 
         mDatabase.update(ProductTable.NAME, values, ProductTable.Cols.UUID + "= ?", new String[]{uuidString});
     }
 
-    public void deleteProduct(UUID id) {
-        mDatabase.delete(ProductTable.NAME, ProductTable.Cols.UUID + "= ?", new String[]{id.toString()});
+    public void deleteProduct(String id) {
+        mDatabase.delete(ProductTable.NAME, ProductTable.Cols.UUID + "= ?", new String[]{id});
     }
 
     public List<Product> getProducts() {
@@ -81,17 +81,17 @@ public class ProductLab {
         }
     }
 
-    public Product getProductByName(String name){
+    public Product getProductByName(String name) {
 
         ProductCursorWrapper cursor = queryProducts(ProductTable.Cols.PRODUCT_NAME + "=?", new String[]{name});
 
-        try{
-            if(cursor.getCount() == 0){
+        try {
+            if (cursor.getCount() == 0) {
                 return null;
             }
             cursor.moveToFirst();
             return cursor.getProduct();
-        }finally {
+        } finally {
             cursor.close();
         }
     }
@@ -110,10 +110,10 @@ public class ProductLab {
         return new ProductCursorWrapper(cursor);
     }
 
-    private static ContentValues    getProductValues(Product product) {
+    private static ContentValues getProductValues(Product product) {
         ContentValues values = new ContentValues();
 
-        values.put(ProductTable.Cols.UUID, product.getId().toString());
+        values.put(ProductTable.Cols.UUID, product.getId());
         values.put(ProductTable.Cols.PRODUCT_NAME, product.getName());
         values.put(ProductTable.Cols.PRICE, product.getPrice());
         values.put(ProductTable.Cols.COUNT, product.getCount());
