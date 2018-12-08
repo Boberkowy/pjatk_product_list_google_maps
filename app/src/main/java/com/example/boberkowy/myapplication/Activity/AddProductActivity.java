@@ -21,6 +21,7 @@ import com.example.boberkowy.myapplication.Model.Product;
 import com.example.boberkowy.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,17 +34,26 @@ public class AddProductActivity extends AppCompatActivity {
 
     private Product mProduct = new Product();
     private DatabaseReference productDatabase;
+    private DatabaseReference permissionReference;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-
         handleExtra();
         createProductNameField();
         createProductPriceField();
         createProductCountField();
+        permissionReference = FirebaseDatabase.getInstance().getReference("permission");
+        firebaseAuth = FirebaseAuth.getInstance();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
 
     public void handleExtra() {
         Intent intent = getIntent();
@@ -73,27 +83,32 @@ public class AddProductActivity extends AppCompatActivity {
     public void addProduct(View view) {
 //        final ProductLab productLab = ProductLab.get(this);
 //        productLab.addProduct(mProduct);
+        if(firebaseAuth.getCurrentUser() != null){
 
-        String id = productDatabase.push().getKey();
-        mProduct.setId(id);
-        productDatabase.child(id).setValue(mProduct);
+            String id = productDatabase.push().getKey();
+            mProduct.setId(id);
+            productDatabase.child(id).setValue(mProduct);
 
-        Toast.makeText(this, "Dodano pomyślnie", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Dodano pomyślnie", Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent();
-        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-        intent.setAction("com.example.boberkowy.myapplication");
-        intent.putExtra("product_id", mProduct.getName());
-        Log.d("BROAD", "Sending broadcast");
-        sendBroadcast(intent, "com.example.mypermission");
+            Intent intent = new Intent();
+            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            intent.setAction("com.example.boberkowy.myapplication");
+            intent.putExtra("product_id", mProduct.getName());
+            Log.d("BROAD", "Sending broadcast");
+            sendBroadcast(intent, "com.example.mypermission");
 
-        startActivity(new Intent(this, ProductListActivity.class));
+            startActivity(new Intent(this, ProductListActivity.class));
+        }else{
+            Toast.makeText(this, "Brak uprawnień", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void editProduct(View view) {
 //        ProductLab productLab = ProductLab.get(this);
 //        productLab.updateProduct(mProduct);
-
+        if(firebaseAuth.getCurrentUser() != null){
         productDatabase.child("name").setValue(mProduct.getName());
         productDatabase.child("count").setValue(mProduct.getCount());
         productDatabase.child("price").setValue(mProduct.getPrice());
@@ -101,7 +116,9 @@ public class AddProductActivity extends AppCompatActivity {
 
         Toast.makeText(AddProductActivity.this, "Edytowano pomyślnie: " + mProduct.getName(), Toast.LENGTH_LONG).show();
         startActivity(new Intent(AddProductActivity.this, ProductListActivity.class));
-
+        }else{
+            Toast.makeText(AddProductActivity.this, "Nie masz uprawnień", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void createProductNameField() {

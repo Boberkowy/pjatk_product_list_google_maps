@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.boberkowy.myapplication.Helpers.StaticsVariables;
 import com.example.boberkowy.myapplication.Model.Product;
 import com.example.boberkowy.myapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +32,7 @@ import static java.util.UUID.fromString;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
-
+    private FirebaseAuth as ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
