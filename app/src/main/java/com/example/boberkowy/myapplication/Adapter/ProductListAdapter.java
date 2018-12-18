@@ -24,9 +24,9 @@ import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
-    private static final String TAG = "RecyclerViewAdapter";
+    private static final String TAG = "ProductListAdapter";
 
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products;
     private Context mContext;
     private DatabaseReference productDatabase;
 
@@ -104,7 +104,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             price = itemView.findViewById(R.id.price);
             hasBeenBought = itemView.findViewById(R.id.hasBeenBought);
             parentLayout = itemView.findViewById(R.id.parent_layout);
-
         }
     }
 

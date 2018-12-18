@@ -16,5 +16,22 @@
     <string name="edit_product">Edytuj produkt</string>
     <string name="delete">Usuń</string>
     <string name="test_broadcast">Test broadcast</string>
-
+    <string name="title_activity_maps">Map</string>
+    <string name="shop_list_button">Lista sklepów</string>
+    <string name="shop_name_label">Nazwa sklepu</string>
+    <string name="address">Adres</string>
+    <string name="longitude">Dług. geo.</string>
+    <string name="latitude">Szer. geo.</string>
+    <string name="add_shop">Dodaj sklep</string>
+    <string name="map">Mapa</string>
+    <string name="radius">Promień</string>
+    <string name="shop_name">Nazwa sklepu</string>
+    <string name="desc">Opis</string>
+    <string name="edit_shop">Edytuj sklep</string>
+    <string name="textwarn">Warnign</string>
+    <string name="geofence_transition_entered">Wszedłeś do sklepu</string>
+    <string name="geofence_transition_exited">Opuściłeś sklep</string>
+    <string name="unknown_geofence_transition">Nie bardzo wiem co zrobiłes</string>
+    <string name="geofence_transition_invalid_type">Nie prawidłowy typ</string>
+    <string name="geofence_transition_notification_text">Wszedłeś do sklepu</string>
 </resources>

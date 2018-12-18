@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:padding="15dp"
+    android:id="@+id/parent_layout">
+
+    <TextView
+        android:id="@+id/shop_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/shop_name_label"
+        android:text="@string/shop_name_label"
+        />
+
+    <TextView
+        android:id="@+id/shop_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/shop_name_label"
+        android:layout_marginStart="5dp"
+        />
+
+    <TextView
+        android:id="@+id/address_label"
+        android:layout_width="103dp"
+        android:layout_height="34dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/shop_name_label"
+        android:layout_marginTop="30dp"
+        android:labelFor="@+id/address_label"
+        android:text="@string/desc" />
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/shop_name"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        android:id="@+id/longitude_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/address_label"
+        android:layout_marginTop="30dp"
+        android:labelFor="@+id/count"
+        android:text="@string/longitude" />
+
+    <TextView
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/desc"
+        android:layout_alignTop="@+id/desc"
+        android:layout_marginTop="30dp"
+        />
+
+
+    <TextView
+        android:id="@+id/latitude_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/longitude_label"
+        android:layout_marginTop="30dp"
+        android:labelFor="@+id/latitude"
+        android:text="@string/latitude" />
+
+    <TextView
+        android:id="@+id/latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/longitude"
+        android:layout_alignTop="@+id/longitude"
+        android:layout_marginTop="30dp"
+        />
+
+
+    <TextView
+        android:id="@+id/radius_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/latitude_label"
+        android:layout_marginTop="30dp"
+        android:labelFor="@+id/radius_label"
+        android:text="@string/radius" />
+
+    <TextView
+        android:id="@+id/radius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/longitude"
+        android:layout_alignTop="@+id/latitude"
+        android:layout_marginTop="30dp"
+        />
+
+</RelativeLayout>

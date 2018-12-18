@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
         prepareSharedPreferences();
         getButtonsPreferences();
-
     }
 
     public void addButtonHandler(View view) {
@@ -69,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    public void shopListButton(View view) {
+        Intent intent = new Intent(this,ShopListActivity.class);
+        startActivity(intent);
+    }
 
     public void testBroadcast(View view) {
 //        Intent intent = new Intent();
@@ -101,4 +105,5 @@ public class MainActivity extends AppCompatActivity {
 
         myRef.setValue("Hello, World!");
     }
+
 }
