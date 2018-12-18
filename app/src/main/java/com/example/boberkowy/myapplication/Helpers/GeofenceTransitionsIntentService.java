@@ -15,7 +15,7 @@ import com.google.android.gms.location.GeofencingEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeofenceTransitionsIntentService extends g {
+public class GeofenceTransitionsIntentService extends JobIntentService {
 
     int id = 0;
     private final String channelId = "channelId";
