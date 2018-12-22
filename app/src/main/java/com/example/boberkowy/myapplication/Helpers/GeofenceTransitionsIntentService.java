@@ -28,32 +28,34 @@ public class GeofenceTransitionsIntentService extends JobIntentService {
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
-            if (geofencingEvent.hasError()) {
-                return;
-            }
-            int geofenceTransition = geofencingEvent.getGeofenceTransition();
-            List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
-            String geofenceTransitionDetails = getGeofenceTransitionDetails(geofenceTransition,
-                    triggeringGeofences);
-            if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-                NotificationCompat.Builder notify = new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.mipmap.ic_launcher_round)
-                        .setContentTitle("No dzień dobry")
-                        .setContentText(geofenceTransitionDetails)
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setAutoCancel(true);
-
-                NotificationManagerCompat nm = NotificationManagerCompat.from(this);
-                nm.notify(id++, notify.build());
-            } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-                NotificationCompat.Builder notify = new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.mipmap.ic_launcher_round)
-                        .setContentTitle("No do widzenia")
-                        .setContentText(geofenceTransitionDetails)
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setAutoCancel(true);
-            }
+        if (geofencingEvent.hasError()) {
+            return;
         }
+        int geofenceTransition = geofencingEvent.getGeofenceTransition();
+        List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
+        String geofenceTransitionDetails = getGeofenceTransitionDetails(geofenceTransition,
+                triggeringGeofences);
+        NotificationCompat.Builder notify = new NotificationCompat.Builder(this, channelId);
+        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
+            notify = new NotificationCompat.Builder(this, channelId)
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setContentTitle("No dzień dobry")
+                    .setContentText(geofenceTransitionDetails)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setAutoCancel(true);
+
+
+        } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
+            notify = new NotificationCompat.Builder(this, channelId)
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setContentTitle("No do widzenia")
+                    .setContentText(geofenceTransitionDetails)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setAutoCancel(true);
+        }
+        NotificationManagerCompat nm = NotificationManagerCompat.from(this);
+        nm.notify(id++, notify.build());
+    }
 
     private String getGeofenceTransitionDetails(
             int geofenceTransition,
