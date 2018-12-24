@@ -6,13 +6,15 @@
     <permission
         android:name="com.example.mypermission"
         android:label="my_permission"
-        android:protectionLevel="dangerous"></permission>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+        android:protectionLevel="dangerous" />
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.example.mypermission" />
-    <uses-permission android:name="com.google.android.providers.gsf.permissions.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permissions.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -46,9 +48,9 @@
         </activity>
         <activity
             android:name=".Activity.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".Activity.AddShopActivity"/>
-        <activity android:name=".Activity.ShopListActivity"/>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".Activity.AddShopActivity" />
+        <activity android:name=".Activity.ShopListActivity" />
 
         <receiver
             android:name=".Helpers.GeofenceReceiver"
@@ -59,6 +61,26 @@
             android:name=".Helpers.GeofenceTransitionsIntentService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <receiver
+            android:name=".Helpers.MusicReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".Helpers.MusicService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+        <receiver
+            android:name=".Helpers.ImageViewReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".Helpers.ImageViewService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -74,10 +96,21 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
+        <receiver android:name=".Widget.MyFirstWidgetEver">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="some_intent"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/my_first_widget_ever_info" />
+        </receiver>
     </application>
 
 </manifest>

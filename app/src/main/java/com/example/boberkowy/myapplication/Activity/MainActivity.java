@@ -1,19 +1,14 @@
 package com.example.boberkowy.myapplication.Activity;
 
 import android.annotation.SuppressLint;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.example.boberkowy.myapplication.Helpers.StaticsVariables;
 import com.example.boberkowy.myapplication.Model.Product;
 import com.example.boberkowy.myapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,12 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.UUID;
-
 import static com.example.boberkowy.myapplication.Helpers.StaticsVariables.*;
 import static com.example.boberkowy.myapplication.Helpers.StaticsVariables.PREFERENCES_FONT_SIZE;
 import static com.example.boberkowy.myapplication.Helpers.StaticsVariables.PREFERENCES_NAME;
-import static java.util.UUID.fromString;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;

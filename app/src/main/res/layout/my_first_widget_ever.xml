@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/widget_margin">
+
+    <Button
+        android:id="@+id/appwidget_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="47dp"
+        android:contentDescription="@string/appwidget_webview"
+        android:text="@string/go_to_web"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="126dp"
+        tools:srcCompat="@drawable/example_appwidget_preview" />
+
+    <Button
+        android:id="@+id/random_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="157dp"
+        android:text="@string/random_image" />
+
+    <Button
+        android:id="@+id/widget_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/random_image"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="205dp"
+        android:text="@string/widget_start" />
+
+    <Button
+        android:id="@+id/widget_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/widget_play"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-61dp"
+        android:text="@string/stop" />
+
+    <Button
+        android:id="@+id/widget_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/widget_stop"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="-1dp"
+        android:text="@string/pause" />
+
+    <Button
+        android:id="@+id/widget_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/widget_stop"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:text="@string/next" />
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/shop_recycler"-->
+    <!--android:layout_width="339dp"-->
+    <!--android:layout_height="113dp"-->
+    <!--android:layout_alignTop="@+id/appwidget_text"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_marginStart="14dp"-->
+    <!--android:layout_marginTop="301dp"-->
+    <!--android:layout_marginBottom="106dp" />-->
+
+</RelativeLayout>
