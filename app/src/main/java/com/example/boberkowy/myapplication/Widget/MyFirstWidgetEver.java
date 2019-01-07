@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
-import com.example.boberkowy.myapplication.Helpers.ImageViewReceiver;
 import com.example.boberkowy.myapplication.Helpers.MusicReceiver;
 import com.example.boberkowy.myapplication.Helpers.MusicSingleton;
 import com.example.boberkowy.myapplication.R;
@@ -19,6 +18,8 @@ import com.example.boberkowy.myapplication.R;
  */
 public class MyFirstWidgetEver extends AppWidgetProvider {
 
+    private static final int[] IMAGES={R.drawable.a,R.drawable.b,
+            R.drawable.c,R.drawable.s};
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -27,14 +28,14 @@ public class MyFirstWidgetEver extends AppWidgetProvider {
         setGoToWebButton(context, views);
         setMusicButtons(context, views);
         MusicSingleton.Initialize();
-        setImageViewButton(context, views);
+        setImageView(context, views);
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     private static void setGoToWebButton(Context context, RemoteViews views) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setData(Uri.parse("http://www.google.com"));
+        intent.setData(Uri.parse("http://www.pja.edu.pl"));
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
@@ -45,32 +46,30 @@ public class MyFirstWidgetEver extends AppWidgetProvider {
         Intent stopIntent = new Intent(context, MusicReceiver.class);
         Intent playIntent = new Intent(context, MusicReceiver.class);
         Intent nextIntent = new Intent(context, MusicReceiver.class);
-        Intent pauseIntent = new Intent(context, MusicReceiver.class);
 
         stopIntent.setAction("stop");
         playIntent.setAction("play");
         nextIntent.setAction("next");
-        pauseIntent.setAction("pause");
 
         PendingIntent stopPendingIntent = PendingIntent.getBroadcast(context, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent playPendingIntent = PendingIntent.getBroadcast(context, 0, playIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent nextPendingIntent = PendingIntent.getBroadcast(context, 0, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent pausePendingIntent = PendingIntent.getBroadcast(context, 0, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         views.setOnClickPendingIntent(R.id.widget_stop, stopPendingIntent);
         views.setOnClickPendingIntent(R.id.widget_play, playPendingIntent);
         views.setOnClickPendingIntent(R.id.widget_next, nextPendingIntent);
-        views.setOnClickPendingIntent(R.id.widget_pause, pausePendingIntent);
 
     }
 
-    private static void setImageViewButton(Context context, RemoteViews views) {
-        Intent nextImageIntent = new Intent(context, ImageViewReceiver.class);
-        nextImageIntent.setAction("next_image");
+    private static void setImageView(Context context, RemoteViews views){
 
-        PendingIntent imagePendingIntent = PendingIntent.getBroadcast(context, 0, nextImageIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setImageViewResource(R.id.imageView,R.drawable.a);
 
-        views.setOnClickPendingIntent(R.id.imageView, imagePendingIntent);
+        Intent intent = new Intent(context,MyFirstWidgetEver.class);
+        intent.setAction("some_intent");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        views.setOnClickPendingIntent(R.id.random_image, pendingIntent);
 
     }
 
@@ -81,6 +80,8 @@ public class MyFirstWidgetEver extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.my_first_widget_ever);
 
         if (intent.getAction().equals("some_intent")) {
+            views.setImageViewResource(R.id.imageView,
+                    IMAGES[(int) (Math.random() * 4)]);
             appWidgetManager.updateAppWidget(new ComponentName(context, MyFirstWidgetEver.class), views);
         }
     }

@@ -59,10 +59,6 @@ public class MusicService extends JobIntentService {
                 }
                 break;
             }
-            case "pause": {
-                break;
-
-            }
         }
     }
 }
