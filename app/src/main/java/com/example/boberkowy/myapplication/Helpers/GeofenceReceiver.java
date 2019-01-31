@@ -10,6 +10,6 @@ public class GeofenceReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        enqueueWork(context,intent);
+         enqueueWork(context,intent);
     }
 }
